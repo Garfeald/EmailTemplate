@@ -1,0 +1,90 @@
+const numbers = [2, 3, 11, 15, 20, 3, 5, 8, 10, 16, 2, 11, 14, 15, 18];
+
+const users = [{
+    username: "lando12",
+    jedi: false
+}, {
+    username: "kvaigon99",
+    jedi: true
+}, {
+    username: "anakin skywalker",
+    jedi: false // DARK SIDE ISN'T JEDI WAY!!!
+}, {
+    username: "littlegreenpug",
+    jedi: true
+}, {
+    username: "ray",
+    jedi: true
+}, {
+    username: "padmebestqueenever",
+    jedi: false
+}];
+
+const documents = [{
+    content: "Ты был мне как брат! Я любил тебя!",
+    author: "Obi-Wan Kenobi",
+    date: "2017-01-17 07:13:07"
+}, {
+    content: "База повстанцев находится на Дантуине.",
+    author: "Leia Organa",
+    date: "1999-02-19 16:56:11"
+}, {
+    content: "Страх открывает доступ к темной стороне! Страх рождает гнев, гнев рождает ненависть, ненависть — залог страданий.",
+    author: "Yoda",
+    date: "2019-11-27 21:33:56"
+}];
+
+
+const getAverage = (numbers) => {
+  const total = numbers.reduce((acc, num) => {
+    return acc + num;
+  },0);
+  return total / numbers.length;
+};
+
+console.log(getAverage(numbers));
+
+
+const getJediNames = (users) => {
+  return users.reduce((count, user) => {
+    if (user.jedi) {
+      count.push(user);
+    };
+    return count;
+  },[]);
+};
+
+
+console.log(getJediNames(users));
+
+
+const getArrayOnlyJedi = (users) => {
+  return users.reduce((name, user) => {
+    if (user.jedi) {
+      name.push(user.username);
+    };
+    return name;
+  },[]);
+}
+
+console.log(getArrayOnlyJedi(users));
+
+const composeDocument = (documents) => {
+  return documents.reduce((generalDocument, document) => {
+    generalDocument.content = generalDocument.content + " " + document.content;
+    generalDocument.authors.push(document.author);
+    if(!generalDocument.date ||
+      new Date(generalDocument.date) <= new Date(document.date)){
+      generalDocument.date = document.date;
+  }
+  return generalDocument;
+  }, {
+      content: "",
+      authors: [],
+      date: null
+  });
+  
+};
+
+
+console.log(composeDocument(documents));
